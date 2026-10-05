@@ -1,0 +1,38 @@
+/* D01ClientRequired */
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFFFFF;color:#1F2A3C;font-family:'Libre Franklin',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#011C45;text-decoration:underline;text-underline-offset:3px}
+a:hover{color:#CE0915}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #CE0915;outline-offset:3px}
+*{box-sizing:border-box}
+
+/* D10Conversation */
+@keyframes wl10-dot{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+
+/* App */
+body{margin:0}*{box-sizing:border-box}
+
+/* hover / active states */
+.wl-h1:hover{background:#0B2C5F !important}
+.wl-h2:hover{background:#0B2C5F !important}
+.wl-h3:hover{background:#E9EEF5 !important}
+.wl-h4:hover{background:#0B2C5F !important}
+.wl-h5:hover{transform:translateY(-6px) !important;box-shadow:0 20px 40px rgba(1,28,69,0.14) !important;background:#FFFFFF !important}
+.wl-h6:hover{transform:translateY(-6px) !important;box-shadow:0 20px 40px rgba(1,28,69,0.14) !important;background:#FFFFFF !important}
+.wl-h7:hover{transform:translateY(-6px) !important;box-shadow:0 20px 40px rgba(1,28,69,0.14) !important;background:#FFFFFF !important}
+.wl-h8:hover{transform:translateY(-6px) !important;box-shadow:0 20px 40px rgba(1,28,69,0.14) !important;background:#FFFFFF !important}
+.wl-h9:hover{transform:translateY(-8px) !important}
+.wl-h10:hover{transform:translateY(-8px) !important}
+.wl-h11:hover{transform:translateY(-8px) !important}
+.wl-h12:hover{transform:translateY(-8px) !important}
+.wl-h13:hover{transform:translate(2px,2px) !important;box-shadow:2px 2px 0 #22262E !important}
+.wl-h14:hover{background:#A3121C !important}
+.wl-h15:hover{color:#011C45 !important;text-decoration:underline !important}
+.wl-h16:hover{color:#011C45 !important;text-decoration:underline !important}
+.wl-h17:hover{color:#011C45 !important;text-decoration:underline !important}
+.wl-h18:hover{background:#0B2C5F !important}
+.wl-h19:active{transform:translate(4px,4px) !important;box-shadow:2px 2px 0 #FF4D57 !important}
+.wl-h20:hover{border-color:#FFD23F !important;transform:translateY(-6px) !important}
+.wl-h21:hover{border-color:#FFD23F !important;transform:translateY(-6px) !important}
+.wl-h22:hover{border-color:#FFD23F !important;transform:translateY(-6px) !important}
+.wl-h23:hover{border-color:#FFD23F !important;transform:translateY(-6px) !important}
