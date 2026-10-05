@@ -1,19 +1,19 @@
 import React from 'react';
-import D01ClientRequired from './designs/D01ClientRequired.jsx';
-import D02HeroElevation from './designs/D02HeroElevation.jsx';
-import D03Sketches from './designs/D03Sketches.jsx';
-import D04InkHandwriting from './designs/D04InkHandwriting.jsx';
-import D05FullScreenImages from './designs/D05FullScreenImages.jsx';
-import D06Rainbow from './designs/D06Rainbow.jsx';
-import D07Decent from './designs/D07Decent.jsx';
-import D08LifeNavigator from './designs/D08LifeNavigator.jsx';
-import D09Gaming from './designs/D09Gaming.jsx';
-import D10Conversation from './designs/D10Conversation.jsx';
+import D01ClientRequired from '../designs/D01ClientRequired.jsx';
+import D02HeroElevation from '../designs/D02HeroElevation.jsx';
+import D03Sketches from '../designs/D03Sketches.jsx';
+import D04InkHandwriting from '../designs/D04InkHandwriting.jsx';
+import D05FullScreenImages from '../designs/D05FullScreenImages.jsx';
+import D06Rainbow from '../designs/D06Rainbow.jsx';
+import D07Decent from '../designs/D07Decent.jsx';
+import D08LifeNavigator from '../designs/D08LifeNavigator.jsx';
+import D09Gaming from '../designs/D09Gaming.jsx';
+import D10Conversation from '../designs/D10Conversation.jsx';
 
 
 const NAMES = ['Client required', 'Hero elevation', 'Sketches', 'Ink handwriting', 'Full-screen images', 'Rainbow', 'Decent', 'Life navigator', 'Gaming', 'Conversation'];
 const FILES = ['Well-Life Landing Page', 'WL 02 Hero Elevation', 'WL 03 Sketches', 'WL 04 Ink Handwriting', 'WL 05 Full-Screen Images', 'WL 06 Rainbow', 'WL 07 Decent', 'WL 08 Life Navigator', 'WL 09 Gaming', 'WL 10 Conversation'];
-class App extends React.Component {
+class DesignSwitcher extends React.Component {
   qp = new URLSearchParams(location.search);
   embed = this.qp.get('embed') === '1';
   state = this.embed ? { d: Number(this.qp.get('d')) || 1, dev: 'laptop' } : { d: Number(localStorage.getItem('wl-design-choice')) || 1, dev: localStorage.getItem('wl-design-device') || 'laptop' };
@@ -139,4 +139,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default DesignSwitcher;

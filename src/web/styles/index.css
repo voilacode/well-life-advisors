@@ -1,0 +1,16 @@
+/**
+ * Main Styles Entry Point
+ *
+ * Tailwind is loaded WITHOUT preflight, and @bloomneo/uikit/styles (which
+ * bundles preflight) is not imported: the ten designs are written with inline
+ * styles against browser defaults, and the reset shifts their spacing and
+ * line-height. If you add UIKit components to this site, scope the reset to
+ * them rather than re-enabling it globally.
+ */
+
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Global rules the designs were authored against */
+@import "./designs.css";
