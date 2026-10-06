@@ -17,18 +17,24 @@ class DesignSwitcher extends React.Component {
   qp = new URLSearchParams(location.search);
   embed = this.qp.get('embed') === '1';
   state = this.embed ? { d: Number(this.qp.get('d')) || 1, dev: 'laptop' } : { d: Number(localStorage.getItem('wl-design-choice')) || 1, dev: localStorage.getItem('wl-design-device') || 'laptop' };
+  // Phones: no Laptop/Mobile toggle, and a dropdown + arrows instead of the tab strip
+  mq = window.matchMedia('(max-width: 720px)');
+  onMq = () => this.setState({ narrow: this.mq.matches });
+  componentDidMount() { this.onMq(); this.mq.addEventListener('change', this.onMq); }
+  componentWillUnmount() { this.mq.removeEventListener('change', this.onMq); }
+  pick(n) { localStorage.setItem('wl-design-choice', String(n)); this.setState({ d: n }); window.scrollTo(0, 0); }
   setDev(dev) { localStorage.setItem('wl-design-device', dev); this.setState({ dev }); window.scrollTo(0, 0); }
   renderVals() {
-    const d = this.state.d, v = {}, mob = this.state.dev === 'mobile';
+    const d = this.state.d, v = {}, narrow = !!this.state.narrow, mob = this.state.dev === 'mobile' && !narrow;
     const tabs = NAMES.map((label, i) => {
       const n = i + 1, on = n === d;
       v['s' + n] = on && !mob;
       return { num: String(n).padStart(2, '0'), label, pressed: on ? 'true' : 'false', bg: on ? '#011C45' : '#FFFFFF', fg: on ? '#FFFFFF' : '#011C45', border: on ? '#011C45' : '#D6DCE5',
-        onPick: () => { localStorage.setItem('wl-design-choice', String(n)); this.setState({ d: n }); window.scrollTo(0, 0); } };
+        onPick: () => this.pick(n) };
     });
     const act = (on) => ({ bg: on ? '#011C45' : 'transparent', fg: on ? '#FFFFFF' : '#011C45', p: on ? 'true' : 'false' });
     const L = act(!mob), M = act(mob);
-    return { ...v, tabs, isMobile: mob, showNav: !this.embed, mobileSrc: location.href.split('#')[0].split('?')[0] + '?embed=1&d=' + d,
+    return { ...v, tabs, narrow, d, isMobile: mob, showNav: !this.embed, mobileSrc: location.href.split('#')[0].split('?')[0] + '?embed=1&d=' + d,
       setLaptop: () => this.setDev('laptop'), setMobile: () => this.setDev('mobile'),
       laptopBg: L.bg, laptopFg: L.fg, laptopPressed: L.p, mobileBg: M.bg, mobileFg: M.fg, mobilePressed: M.p };
   }
@@ -36,7 +42,26 @@ class DesignSwitcher extends React.Component {
     const v = this.renderVals();
     return (
       <>
-      {v.showNav && (
+      {v.showNav && v.narrow && (
+        <nav aria-label="Design options" style={{ fontFamily: "'Libre Franklin',system-ui,sans-serif", background: "#FFFFFF", borderBottom: "1px solid #E3E7ED", position: "relative", zIndex: "50" }}>
+          <div style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: "8px" }}>
+            <button onClick={() => this.pick(v.d === 1 ? NAMES.length : v.d - 1)} aria-label="Previous design" style={{ flex: "none", width: "48px", height: "48px", borderRadius: "10px", border: "1px solid #D6DCE5", background: "#FFFFFF", color: "#011C45", fontSize: "22px", cursor: "pointer" }}>
+              ‹
+            </button>
+            <select value={v.d} onChange={(e) => this.pick(Number(e.target.value))} aria-label="Choose a design" style={{ flex: "1", minWidth: "0", height: "48px", padding: "0 12px", borderRadius: "10px", border: "1px solid #011C45", background: "#011C45", color: "#FFFFFF", fontFamily: "inherit", fontSize: "16px", fontWeight: "600" }}>
+              {v.tabs.map((t, i0) => (
+                <option key={i0} value={i0 + 1}>
+                  {t.num} · {t.label}
+                </option>
+              ))}
+            </select>
+            <button onClick={() => this.pick(v.d === NAMES.length ? 1 : v.d + 1)} aria-label="Next design" style={{ flex: "none", width: "48px", height: "48px", borderRadius: "10px", border: "1px solid #D6DCE5", background: "#FFFFFF", color: "#011C45", fontSize: "22px", cursor: "pointer" }}>
+              ›
+            </button>
+          </div>
+        </nav>
+      )}
+      {v.showNav && !v.narrow && (
         <>
         <nav aria-label="Design options" style={{ fontFamily: "'Libre Franklin',system-ui,sans-serif", background: "#FFFFFF", borderBottom: "1px solid #E3E7ED", position: "relative", zIndex: "50" }}>
           <div style={{ maxWidth: "1440px", margin: "0 auto", padding: "10px 16px", display: "flex", alignItems: "center", gap: "16px" }}>
