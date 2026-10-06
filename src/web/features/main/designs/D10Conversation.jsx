@@ -9,7 +9,9 @@ class D10Conversation extends React.Component {
   gRefs = [0, 1, 2, 3, 4].map(() => React.createRef());
   timers = [];
   componentDidMount() {
-    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Design-review build: always animate, even when the device asks for reduced motion.
+    // Restore the prefers-reduced-motion check before this design goes live.
+    const reduced = false;
     if (reduced) { this.setState({ st: [2, 2, 2, 2, 2] }); return; }
     this.io = new IntersectionObserver((es) => es.forEach(e => {
       if (!e.isIntersecting) return;

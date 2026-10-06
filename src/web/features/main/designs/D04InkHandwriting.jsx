@@ -11,7 +11,9 @@ class D04InkHandwriting extends React.Component {
   refServices = React.createRef(); refApproach = React.createRef(); refBio = React.createRef(); refWho = React.createRef(); refCta = React.createRef();
   started = new Set(); timers = [];
   componentDidMount() {
-    this.reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Design-review build: always animate, even when the device asks for reduced motion.
+    // Restore the prefers-reduced-motion check before this design goes live.
+    this.reduced = false;
     this.write('hero');
     const map = new Map([[this.refServices.current, 'services'], [this.refApproach.current, 'approach'], [this.refBio.current, 'bio'], [this.refWho.current, 'who'], [this.refCta.current, 'cta']]);
     this.io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) this.write(map.get(e.target)); }), { threshold: 0.3 });
